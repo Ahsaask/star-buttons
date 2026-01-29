@@ -1,0 +1,94 @@
+.steph-star {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.steph-star.rotating {
+  animation: rotate 8s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.steph-star-img {
+  width: 150px;
+  height: auto;
+  position: relative;
+  z-index: 3;
+}
+
+.steph-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: auto;
+  z-index: 1;
+}
+
+.steph-glow-more {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: auto;
+  z-index: 2;
+  animation: glowPulse 0.3s ease-out forwards;
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.shooting-star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  background: linear-gradient(45deg, #ffd700, #ffec8b, #fff8dc);
+  border-radius: 50%;
+  box-shadow:
+    0 0 6px #ffd700,
+    0 0 12px #ffd700,
+    0 0 18px #ffec8b;
+  z-index: 10;
+  pointer-events: none;
+  animation: shootOut calc(1.2s / var(--speed)) ease-out forwards;
+  --angle: 0deg;
+}
+
+@keyframes shootOut {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateX(0);
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateX(200px);
+    opacity: 0;
+  }
+}
+

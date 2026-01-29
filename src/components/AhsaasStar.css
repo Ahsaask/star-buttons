@@ -1,0 +1,54 @@
+.ahsaas-star {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ahsaas-star-img {
+  width: 60px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.ahsaas-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.glow-v1 {
+  width: 100px;
+  height: auto;
+  opacity: 0.6;
+}
+
+.glow-v2 {
+  width: 120px;
+  height: auto;
+  opacity: 1;
+  animation: pulse 0.4s ease-out forwards;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+
