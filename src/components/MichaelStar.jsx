@@ -22,7 +22,7 @@ const MATH_EQUATIONS = [
   'dx/dt',
 ]
 
-function MichaelStar() {
+function MichaelStar({ forceHover = false }) {
   const [isHovered, setIsHovered] = useState(false)
   const [equations, setEquations] = useState([])
 
@@ -52,6 +52,8 @@ function MichaelStar() {
     }, 1500)
   }, [])
 
+  const showGlow = equations.length > 0 || forceHover
+
   return (
     <div
       className="michael-star"
@@ -59,8 +61,8 @@ function MichaelStar() {
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
-      {equations.length > 0 && (
-        <img src={glowImg} alt="glow" className="michael-glow glow-pulse" />
+      {showGlow && (
+        <img src={glowImg} alt="glow" className={`michael-glow ${forceHover ? '' : 'glow-pulse'}`} />
       )}
 
       <img src={ringImg} alt="ring" className="michael-ring" />

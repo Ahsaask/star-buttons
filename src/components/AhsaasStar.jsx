@@ -4,7 +4,7 @@ import glowV1 from '../assets/ahsaas/ahsaas_glow_v1.png'
 import glowV2 from '../assets/ahsaas/ahsaasglowv2.PNG'
 import './AhsaasStar.css'
 
-function AhsaasStar() {
+function AhsaasStar({ forceHover = false }) {
   const [isHovered, setIsHovered] = useState(false)
 
   const handleMouseEnter = () => {
@@ -15,6 +15,8 @@ function AhsaasStar() {
     setIsHovered(false)
   }
 
+  const showExtraGlow = isHovered || forceHover
+
   return (
     <div
       className="ahsaas-star"
@@ -23,7 +25,7 @@ function AhsaasStar() {
     >
       <img src={glowV1} alt="glow" className="ahsaas-glow glow-v1" />
 
-      {isHovered && (
+      {showExtraGlow && (
         <img src={glowV2} alt="glow" className="ahsaas-glow glow-v2" />
       )}
 
