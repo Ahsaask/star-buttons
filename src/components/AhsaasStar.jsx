@@ -23,9 +23,7 @@ function AhsaasStar() {
     >
       <img src={glowV1} alt="glow" className="ahsaas-glow glow-v1" />
 
-      {isHovered && (
-        <img src={glowV2} alt="glow" className="ahsaas-glow glow-v2" />
-      )}
+      <img src={glowV2} alt="glow" className={`ahsaas-glow glow-v2 ${isHovered ? "hovered" : ""}`}/>
 
       <img src={starImg} alt="Ahsaas Star" className="ahsaas-star-img" />
     </div>

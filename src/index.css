@@ -19,7 +19,7 @@ body {
 }
 
 
-/* to make this darker*/
+/* to make bg darker lol*/
 body::before {
   content: "";
   position: fixed;

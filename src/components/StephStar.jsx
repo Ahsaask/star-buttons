@@ -45,9 +45,9 @@ function StephStar() {
     >
       <img src={glowImg} alt="glow" className="steph-glow" />
 
-      {isHovered && (
-        <img src={glowMoreImg} alt="glow more" className="steph-glow-more" />
-      )}
+      
+      <img src={glowMoreImg} alt="glow more" className={`steph-glow-more ${isHovered ? "show" : ""}`}/>
+
 
       <img src={starImg} alt="Steph Star" className="steph-star-img" />
 
