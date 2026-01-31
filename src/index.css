@@ -11,5 +11,20 @@ html, body, #root {
 }
 
 body {
-  background-color: #000;
+  background-image: url("./assets/space_background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
+
+
+/* to make this darker*/
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  pointer-events: none;
+}
+
