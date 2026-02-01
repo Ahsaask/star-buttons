@@ -359,3 +359,113 @@
     opacity: 0;
   }
 }
+
+.constellation-ui {
+  position: absolute;
+  left: calc(100% + 32px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  color: white;
+  pointer-events: auto;
+
+  opacity: 0;
+  animation: fadeInUI 600ms ease-out forwards;
+}
+
+@keyframes fadeInUI {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+
+.constellation-text h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.constellation-text p {
+  margin: 0;
+  opacity: 0.85;
+}
+
+.ok-btn {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  background: white;
+  color: black;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.water-text {
+  animation: floatWater 2.5s ease-in-out infinite;
+}
+
+@keyframes floatWater {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+.fire-text {
+  animation: pulseFire 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseFire {
+  0% {
+    transform: scale(1);
+    color: #ff4d4d;
+    text-shadow: 0 0 4px #ff4d4d, 0 0 8px #ff6666;
+  }
+  50% {
+    transform: scale(1.05);
+    color: #ff6666;
+    text-shadow: 0 0 6px #ff6666, 0 0 12px #ff8080;
+  }
+  100% {
+    transform: scale(1);
+    color: #ff4d4d;
+    text-shadow: 0 0 4px #ff4d4d, 0 0 8px #ff6666;
+  }
+}
+
+.air-text {
+  animation: swayAir 3s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes swayAir {
+  0%, 100% {
+    transform: rotate(0deg);
+    opacity: 0.95;
+  }
+  25% {
+    transform: rotate(2deg);
+    opacity: 1;
+  }
+  75% {
+    transform: rotate(-2deg);
+    opacity: 1;
+  }
+}

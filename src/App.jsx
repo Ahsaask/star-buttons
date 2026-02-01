@@ -18,6 +18,40 @@ const RELATIONSHIP_IMAGES = {
   'all': allStarImg,
 }
 
+const CONSTELLATION_MESSAGES = {
+  'ahsaas-steph': {
+    title: 'Fire',
+    body: 'Fire emerges where brightness meets stillness—Steph’s outward energy ignited, but steadied, by Ahsaas’s calm presence.',
+    font: "'Quicksand', sans-serif",
+  },
+  'steph-ahsaas': {
+    title: 'Fire',
+    body: 'Fire emerges where brightness meets stillness—Steph’s outward energy ignited, but steadied, by Ahsaas’s calm presence.',
+    font: "'Quicksand', sans-serif",
+  },
+  'steph-michael': {
+    title: 'Air',
+    body: 'Air carries motion and thought together, flowing between Steph’s constant energy and Michael’s quiet logic.',
+    font: "'TASA Orbiter', sans-serif",
+  },
+  'michael-steph': {
+    title: 'Air',
+    body: 'Air carries motion and thought together, flowing between Steph’s constant energy and Michael’s quiet logic.',
+    font: "'TASA Orbiter', sans-serif",
+  },
+  'michael-ahsaas': {
+    title: 'Water',
+    body: 'Water forms in shared calm—Ahsaas’s emotional steadiness and Michael’s logic moving with depth and ease.',
+    font: "'Raleway', sans-serif",
+  },
+  'ahsaas-michael': {
+    title: 'Water',
+    body: 'Water forms in shared calm—Ahsaas’s emotional steadiness and Michael’s logic moving with depth and ease.',
+    font: "'Raleway', sans-serif",
+  },
+}
+
+
 // Colors for liquid ball based on constellation
 const CONSTELLATION_COLORS = {
   'ahsaas-steph': { primary: '#c0392b', secondary: '#e74c3c', glow: 'rgba(192, 57, 43, 0.6)' }, // Red
@@ -178,18 +212,6 @@ function App() {
           setConstellation(prev => prev ? { ...prev, phase: 'visible' } : null)
         }, 1800)
 
-        // Phase 5: Start fading
-        setTimeout(() => {
-          setConstellation(prev => prev ? { ...prev, phase: 'fading' } : null)
-        }, 4000)
-
-        // Reset everything and clear connections
-        setTimeout(() => {
-          setConstellation(null)
-          setConnections([])
-          setAnimatedPositions({ ...DEFAULT_POSITIONS })
-        }, 5000)
-
         return
       }
 
@@ -234,6 +256,19 @@ function App() {
     if (!fromCenter || !toCenter) return null
     return { x1: fromCenter.x, y1: fromCenter.y, x2: toCenter.x, y2: toCenter.y }
   }
+
+  // Reset function for ok button
+  const resetAll = () => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current)
+    }
+
+    setConstellation(null)
+    setConnections([])
+    setMerging(null)
+    setAnimatedPositions({ ...DEFAULT_POSITIONS })
+  }
+
 
   // Get center of connection line for badge
   const getLineMidpoint = (from, to) => {
@@ -428,6 +463,35 @@ function App() {
               className="constellation-img"
             />
           )}
+
+          {constellation.phase === 'visible' && (
+            <div
+              className="constellation-ui"
+              style={{
+                fontFamily: CONSTELLATION_MESSAGES[constellation.key]?.font || 'system-ui',
+              }}
+            >
+              <div
+                className={`constellation-text ${
+                  constellation.key.includes('ahsaas-steph') ? 'fire-text' :
+                  constellation.key.includes('steph-michael') ? 'air-text' :
+                  constellation.key.includes('michael-ahsaas') ? 'water-text' :
+                  constellation.key.includes('steph-ahsaas') ? 'fire-text' :
+                  constellation.key.includes('michael-steph') ? 'air-text' :
+                  constellation.key.includes('ahsaas-michael') ? 'water-text' :
+                  ''
+                }`}
+              >
+                <h2>{CONSTELLATION_MESSAGES[constellation.key]?.title}</h2>
+                <p>{CONSTELLATION_MESSAGES[constellation.key]?.body}</p>
+              </div>
+
+              <button className="ok-btn" onClick={resetAll}>
+                OK
+              </button>
+            </div>
+          )}
+
 
           {/* Fullscreen all-star image */}
           {(constellation.phase === 'fullscreen' || constellation.phase === 'fading-fullscreen') && (
