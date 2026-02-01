@@ -4,7 +4,7 @@ import glowImg from '../assets/steph/steph_glow.PNG'
 import glowMoreImg from '../assets/steph/steph_glow_more.PNG'
 import './StephStar.css'
 
-function StephStar() {
+function StephStar({ forceHover = false }) {
   const [isHovered, setIsHovered] = useState(false)
   const [shootingStars, setShootingStars] = useState([])
 
@@ -23,7 +23,7 @@ function StephStar() {
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * 360
       const speed = Math.random() * 0.5 + 0.8
-      const size = Math.random() * 8 + 4 
+      const size = Math.random() * 8 + 4
       const id = Date.now() + Math.random() + i
 
       newStars.push({ id, angle, speed, size })
@@ -36,6 +36,8 @@ function StephStar() {
     }, 1500)
   }, [])
 
+  const showExtraGlow = isHovered || forceHover
+
   return (
     <div
       className="steph-star rotating"
@@ -46,8 +48,7 @@ function StephStar() {
       <img src={glowImg} alt="glow" className="steph-glow" />
 
       
-      <img src={glowMoreImg} alt="glow more" className={`steph-glow-more ${isHovered ? "show" : ""}`}/>
-
+      <img src={glowMoreImg} alt="glow more" className={`steph-glow-more ${showExtraGlow ? "show" : ""}`}/>
 
       <img src={starImg} alt="Steph Star" className="steph-star-img" />
 
