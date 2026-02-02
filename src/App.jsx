@@ -22,32 +22,32 @@ const CONSTELLATION_MESSAGES = {
   'ahsaas-steph': {
     title: 'Fire',
     body: 'Fire emerges where brightness meets stillness—Steph’s outward energy ignited, but steadied, by Ahsaas’s calm presence.',
-    font: "'Quicksand', sans-serif",
+    font: "'Libre Baskerville', sans-serif",
   },
   'steph-ahsaas': {
     title: 'Fire',
     body: 'Fire emerges where brightness meets stillness—Steph’s outward energy ignited, but steadied, by Ahsaas’s calm presence.',
-    font: "'Quicksand', sans-serif",
+    font: "'Libre Baskerville', sans-serif",
   },
   'steph-michael': {
     title: 'Air',
     body: 'Air carries motion and thought together, flowing between Steph’s constant energy and Michael’s quiet logic.',
-    font: "'TASA Orbiter', sans-serif",
+    font: "'Libre Baskerville', sans-serif",
   },
   'michael-steph': {
     title: 'Air',
     body: 'Air carries motion and thought together, flowing between Steph’s constant energy and Michael’s quiet logic.',
-    font: "'TASA Orbiter', sans-serif",
+    font: "'Libre Baskerville', sans-serif",
   },
   'michael-ahsaas': {
     title: 'Water',
     body: 'Water forms in shared calm—Ahsaas’s emotional steadiness and Michael’s logic moving with depth and ease.',
-    font: "'Raleway', sans-serif",
+    font: "'Libre Baskerville', sans-serif",
   },
   'ahsaas-michael': {
     title: 'Water',
     body: 'Water forms in shared calm—Ahsaas’s emotional steadiness and Michael’s logic moving with depth and ease.',
-    font: "'Raleway', sans-serif",
+    font: "'Libre Baskerville', sans-serif",
   },
 }
 
@@ -330,6 +330,14 @@ function App() {
 
   return (
     <div className={`canvas ${merging ? 'merging' : ''} ${constellation ? 'constellation-active' : ''}`} ref={canvasRef}>
+
+      <div
+        className={`center-title ${(constellation || merging || dragging || connections.length > 0) ? 'hidden' : ''}`}>
+        <h1>Our Team Constellation</h1>
+        <p>Drag from one star to another to begin</p>
+      </div>
+
+
       {/* Clear connections button */}
       {connections.length > 0 && !constellation && (
         <button className="clear-btn" onClick={clearConnections}>
