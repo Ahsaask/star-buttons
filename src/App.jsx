@@ -330,7 +330,14 @@ function App() {
 
   return (
     <div className={`canvas ${merging ? 'merging' : ''} ${constellation ? 'constellation-active' : ''}`} ref={canvasRef}>
+      
+      {/* Aesthetics!! */}
+      <div className="nebula"></div>
+      <div className="dust"></div>
+      <div className="vignette"></div>
 
+
+      {/* Title! */}
       <div
         className={`center-title ${(constellation || merging || dragging || connections.length > 0) ? 'hidden' : ''}`}>
         <h1>Our Team Constellation</h1>
