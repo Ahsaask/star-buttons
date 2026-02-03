@@ -427,13 +427,6 @@ function App() {
           </button>
         )}
 
-        {/* Back button when constellation is visible */}
-        {constellation?.phase === 'visible' && (
-          <button className="clear-btn" onClick={resetAll}>
-            Back
-          </button>
-        )}
-
         {/* SVG layer for connection lines */}
         <svg className={`connections-layer ${constellation ? 'hidden' : ''}`}>
           {connections.map((conn, idx) => {
