@@ -235,13 +235,14 @@ function App() {
       if (progress >= 1) {
         // Stars have collided - hide stars, show liquid ball
         const key = `${star1}-${star2}`
-        const canvas = canvasRef.current
-        const collisionX = (midLeft / 100) * canvas.clientWidth
-        const collisionY = (midTop / 100) * canvas.clientHeight
+
+        // Use percentage-based positioning so it stays correct when canvas shifts
+        const collisionLeft = midLeft
+        const collisionTop = midTop
 
         // Phase 1: Stars disappear, liquid ball appears
         setMerging({ stars, progress: 1, phase: 'collided' })
-        setConstellation({ key, x: collisionX, y: collisionY, phase: 'liquid', stars })
+        setConstellation({ key, left: collisionLeft, top: collisionTop, phase: 'liquid', stars })
 
         // Phase 2: Liquid morphs for a bit (faster)
         setTimeout(() => {
@@ -352,14 +353,16 @@ function App() {
   // Handle Unite All - show fullscreen image with description panel
   const handleUniteAll = () => {
     stopAmbience()
-    const canvas = canvasRef.current
-    if (!canvas) return
+
+    // Calculate center of triangle in percentages
+    const centerTop = (DEFAULT_POSITIONS.ahsaas.top + DEFAULT_POSITIONS.steph.top + DEFAULT_POSITIONS.michael.top) / 3
+    const centerLeft = (DEFAULT_POSITIONS.ahsaas.left + DEFAULT_POSITIONS.steph.left + DEFAULT_POSITIONS.michael.left) / 3
 
     // Set constellation to 'all' with visible phase (so description panel shows)
     setConstellation({
       key: 'all',
-      x: canvas.clientWidth / 2,
-      y: canvas.clientHeight / 2,
+      left: centerLeft,
+      top: centerTop,
       phase: 'visible',
       stars: ['ahsaas', 'steph', 'michael'],
     })
@@ -536,8 +539,8 @@ function App() {
           <div
             className={`collision-effect ${constellation.phase}`}
             style={{
-              left: constellation.x,
-              top: constellation.y,
+              left: `${constellation.left}%`,
+              top: `${constellation.top}%`,
               '--color-primary': CONSTELLATION_COLORS[constellation.key]?.primary || '#c0392b',
               '--color-secondary': CONSTELLATION_COLORS[constellation.key]?.secondary || '#e74c3c',
               '--color-glow': CONSTELLATION_COLORS[constellation.key]?.glow || 'rgba(192, 57, 43, 0.6)',
@@ -563,7 +566,11 @@ function App() {
       </div>
 
       {/* Description Panel */}
-      <div className="description-panel">
+      <div className={`description-panel ${
+        constellation?.key === 'michael-ahsaas' || constellation?.key === 'ahsaas-michael'
+          ? 'panel-left'
+          : 'panel-right'
+      }`}>
         <div className="description-content">
           {/* Tab icon */}
           <div className="description-tab">
