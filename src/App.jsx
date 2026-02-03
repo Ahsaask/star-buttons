@@ -7,6 +7,9 @@ import ahsaasStephImg from './assets/ahsaas-setph/IMG_1283.PNG'
 import stephMichaelImg from './assets/steph-michael/IMG_1279.PNG'
 import michaelAhsaasImg from './assets/michael-ahsaas/IMG_1281.PNG'
 import allStarImg from './assets/all-star/IMG_1286.PNG'
+import fireAmbience from './assets/sounds/fire.mp3'
+import airAmbience from './assets/sounds/air.mp3'
+import waterAmbience from './assets/sounds/water.mp3'
 
 const RELATIONSHIP_IMAGES = {
   'ahsaas-steph': ahsaasStephImg,
@@ -72,6 +75,19 @@ const LINE_COLORS = {
   'ahsaas-steph': 'rgba(255, 255, 255, 0.6)', // Default white
   'steph-ahsaas': 'rgba(255, 255, 255, 0.6)',
 }
+
+// sounds that will play during the constellations
+const AMBIENT_SOUNDS = {
+  'ahsaas-steph': fireAmbience,
+  'steph-ahsaas': fireAmbience,
+
+  'steph-michael': airAmbience,
+  'michael-steph': airAmbience,
+
+  'michael-ahsaas': waterAmbience,
+  'ahsaas-michael': waterAmbience,
+}
+
 
 const DEFAULT_POSITIONS = {
   ahsaas: { top: 25, left: 50 },
@@ -159,6 +175,7 @@ function App() {
 
   // Clear all connections
   const clearConnections = () => {
+    stopAmbience()
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current)
     }
@@ -259,6 +276,7 @@ function App() {
 
   // Reset function for ok button
   const resetAll = () => {
+    stopAmbience()
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current)
     }
@@ -303,6 +321,7 @@ function App() {
 
   // Handle Unite All - fade stars and show fullscreen image
   const handleUniteAll = () => {
+    stopAmbience()
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -327,6 +346,41 @@ function App() {
       setAnimatedPositions({ ...DEFAULT_POSITIONS })
     }, 6000)
   }
+
+  const ambientRef = useRef(null)
+
+  // helper that stops ambience
+  const stopAmbience = useCallback(() => {
+    if (ambientRef.current) {
+      ambientRef.current.pause()
+      ambientRef.current.currentTime = 0
+      ambientRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    stopAmbience()
+
+    // only play when constellation is visible
+    if (!constellation || constellation.phase !== 'visible') return
+
+    const src = AMBIENT_SOUNDS[constellation.key]
+    if (!src) return
+
+    const audio = new Audio(src)
+    audio.loop = true
+    audio.volume = 0.1 // volume!!!!
+    audio.play().catch(() => { })
+    ambientRef.current = audio
+
+    // cleanup if constellation changes
+    return () => {
+      if (audio) audio.pause()
+    }
+  }, [constellation, stopAmbience])
+
+
+
 
   return (
     <div className={`canvas ${merging ? 'merging' : ''} ${constellation ? 'constellation-active' : ''}`} ref={canvasRef}>
